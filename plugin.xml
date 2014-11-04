@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:rim="http://www.blackberry.com/ns/widgets"
+	id="com.emaho.AppUpdate"
+	version="0.0.1">
+
+    <name>App Update</name>
+    <description>PhoneGap plugin to update application www directory</description>
+    <author>EMAHO</author>
+
+    <js-module src="www/js/appUpdate.js" name="AppUpdate">
+        <clobbers target="navigator.AppUpdate" />
+    </js-module>
+
+    <engines>
+        <engine name="cordova" version=">=3.1.0" />
+    </engines>
+
+    <platform name="ios">
+
+        <!-- config file -->
+        <config-file target="config.xml" parent="/*">
+            <feature name="AppUpdate">
+                <param name="ios-package" value="AppUpdate" />
+            </feature>
+        </config-file>
+
+        <!-- core CustomCamera header and source files -->
+        <header-file src="platforms/ios/AppUpdate/Classes/AppUpdate.h" />
+        <source-file src="platforms/ios/AppUpdate/Classes/AppUpdate.m" />
+
+    </platform>
+
+</plugin>
