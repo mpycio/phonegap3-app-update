@@ -10,7 +10,7 @@
     <author>EMAHO</author>
 
     <js-module src="www/js/appUpdate.js" name="AppUpdate">
-        <clobbers target="navigator.AppUpdate" />
+        <clobbers target="AppUpdate" />
     </js-module>
 
     <engines>
