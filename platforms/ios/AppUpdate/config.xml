@@ -20,7 +20,7 @@
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
     <feature name="AppUpdate">
-        <param name="ios-package" value="AppUpdate" />
+        <param name="ios-package" value="AppUpdate" onload="true" />
     </feature>
     <name>AppUpdate</name>
     <description>

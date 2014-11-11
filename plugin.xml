@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+platforms/ios/AppUpdate/config.xml<?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:rim="http://www.blackberry.com/ns/widgets"
@@ -10,11 +10,11 @@
     <author>EMAHO</author>
 
     <js-module src="www/js/appUpdate.js" name="AppUpdate">
-        <clobbers target="AppUpdate" />
+        <clobbers target="window.AppUpdate" />
     </js-module>
 
     <engines>
-        <engine name="cordova" version=">=3.1.0" />
+        <engine name="cordova" version=">=3.0.0" />
     </engines>
 
     <platform name="ios">
@@ -22,13 +22,29 @@
         <!-- config file -->
         <config-file target="config.xml" parent="/*">
             <feature name="AppUpdate">
-                <param name="ios-package" value="AppUpdate" />
+                <param name="ios-package" value="AppUpdate" onload="true" />
             </feature>
         </config-file>
 
-        <!-- core CustomCamera header and source files -->
+        <!-- core AppUpdate header and source files -->
         <header-file src="platforms/ios/AppUpdate/Classes/AppUpdate.h" />
         <source-file src="platforms/ios/AppUpdate/Classes/AppUpdate.m" />
+
+        <!-- SSZipArchive header and source files -->
+        <header-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/SSZipArchive.h" />
+        <source-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/SSZipArchive.m" />
+        <header-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/crypt.h" />
+        <header-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/ioapi.h" />
+        <source-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/ioapi.c" />
+        <header-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/mztools.h" />
+        <source-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/mztools.c" />
+        <header-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/unzip.h" />
+        <source-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/unzip.c" />
+        <header-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/zip.h" />
+        <source-file src="platforms/ios/AppUpdate/Classes/SSZipArchive/minizip/zip.c" />
+
+        <!-- System frameworks -->
+        <framework src="libz.dylib" />
 
     </platform>
 
