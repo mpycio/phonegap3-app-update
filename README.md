@@ -1,7 +1,7 @@
 phonegap3-app-update
 ====================
 
-PhoneGap plugin for updating application www contents from URL.
+PhoneGap plugin for updating application www contents from URL. 
 
 phonnegap create hello com.example.hello HelloWorld
 cd hello
