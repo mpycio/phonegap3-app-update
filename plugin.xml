@@ -47,5 +47,19 @@
         <framework src="libz.dylib" />
 
     </platform>
+    
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <preference name="permissions" value="none"/>
+            
+            <feature name="AppUpdate">
+                <param name="android-package" value="uk.co.emaho.AppUpdate"/>
+            </feature>
+            <feature name="http://api.phonegap.com/1.0/file"/>
+        </config-file>
+        <!-- <source-file src="src/android/libs/gcm.jar" target-dir="libs/" /> -->
+        <source-file src="platforms/android/src/uk/co/emaho/AppUpdate.java" target-dir="src/uk/co/emaho/" />
+        <source-file src="platforms/android/src/uk/co/emaho/Unzip.java" target-dir="src/uk/co/emaho/" />
+    </platform>
 
 </plugin>

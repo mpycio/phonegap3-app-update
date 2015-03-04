@@ -1,15 +1,25 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.emaho.AppUpdate" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>AppUpdate</name>
-    <feature name="AppUpdate">
-        <param name="ios-package" value="AppUpdate" />
-    </feature>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        AppUpdate plugin that allows to dynamically update www folder contents from extarnal url
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
         PhoneGap Team
     </author>
+    
+    <!-- this is just a hack to force Cordova to call remapUri and shouldOverrideLoadWithRequest -->
+    <!-- <content src="file://AppUpdate" /> -->
+    
+    <feature name="AppUpdate">
+        <param name="ios-package" value="AppUpdate" />
+        <param name="android-package" value="uk.co.emaho.AppUpdate"/>
+        <param name="onload" value="true"/> <!-- required for plugin to load inital page correctly -->
+    </feature>
+    
+    <!-- WRITE_EXTERNAL_STORAGE permission on android -->
+    <feature name="http://api.phonegap.com/1.0/file"/>
+
     <preference name="permissions" value="none" />
     <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="default" />
@@ -24,7 +34,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="7" />
+    <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
