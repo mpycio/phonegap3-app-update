@@ -20,11 +20,13 @@
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
     <feature name="AppUpdate">
-        <param name="ios-package" value="AppUpdate" onload="true" />
+        <param name="ios-package" value="AppUpdate" />
+        <param name="android-package" value="uk.co.emaho.AppUpdate"/>
+        <param name="onload" value="true"/> <!-- required for plugin to load inital page correctly -->
     </feature>
     <name>AppUpdate</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        AppUpdate plugin that allows to dynamically update www folder contents from extarnal url
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
         PhoneGap Team
@@ -43,7 +45,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="7" />
+    <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />

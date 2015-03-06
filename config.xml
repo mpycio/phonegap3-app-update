@@ -9,7 +9,7 @@
     </author>
     
     <!-- this is just a hack to force Cordova to call remapUri and shouldOverrideLoadWithRequest -->
-    <!-- <content src="file://AppUpdate" /> -->
+    <content src="data:///index.html" />
     
     <feature name="AppUpdate">
         <param name="ios-package" value="AppUpdate" />

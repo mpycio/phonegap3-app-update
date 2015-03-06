@@ -39,8 +39,14 @@
             </div>
             <button id="appUpdateBtn" style="padding: 10px 50px;margin: 20px 0">Update app</button>
             <p id="result"></p>
-            <script src="js/appUpdate.js"></script>
-            <script>
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script src="js/appUpdate.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+
             document.getElementById("appUpdateBtn").addEventListener("click", function(){
                 AppUpdate.update(
                     function(msg){
@@ -53,13 +59,7 @@
                 );
             }, false);
             </script>
-
-        </div>
-
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
         </script>
+    
     </body>
 </html>

@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		10443A381A081686000788F6 /* AppUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 10443A371A081686000788F6 /* AppUpdate.m */; };
 		10443A441A0827CD000788F6 /* plugin.xml in Resources */ = {isa = PBXBuildFile; fileRef = 10443A431A0827CD000788F6 /* plugin.xml */; };
