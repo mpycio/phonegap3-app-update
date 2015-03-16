@@ -1,5 +1,7 @@
 package uk.co.emaho;
 import android.util.Log;
+
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,41 +20,48 @@ public class Unzip {
         _zipFile = zipFile;
         _location = location;
 
-        _dirChecker("");
+        hanldeDirectory("");
     }
 
     public void unzip() {
-        try  {
-            FileInputStream fin = new FileInputStream(_zipFile);
-            ZipInputStream zin = new ZipInputStream(fin);
-            ZipEntry ze = null;
-            while ((ze = zin.getNextEntry()) != null) {
-                Log.v("Decompress", "Unzipping " + ze.getName());
 
-                if(ze.isDirectory()) {
-                    _dirChecker(ze.getName());
+        try {
+            FileInputStream inputStream = new FileInputStream(_zipFile);
+            ZipInputStream zipStream = new ZipInputStream(inputStream);
+            ZipEntry zEntry = null;
+            while ((zEntry = zipStream.getNextEntry()) != null) {
+                Log.d("Unzip", "Unzipping " + zEntry.getName() + " at "
+                        + _location);
+
+                if (zEntry.isDirectory()) {
+                    hanldeDirectory(zEntry.getName());
                 } else {
-                    FileOutputStream fout = new FileOutputStream(_location + ze.getName());
-                    for (int c = zin.read(); c != -1; c = zin.read()) {
-                        fout.write(c);
+                    FileOutputStream fout = new FileOutputStream(
+                            this._location + "/" + zEntry.getName());
+                    BufferedOutputStream bufout = new BufferedOutputStream(fout);
+                    byte[] buffer = new byte[1024];
+                    int read = 0;
+                    while ((read = zipStream.read(buffer)) != -1) {
+                        bufout.write(buffer, 0, read);
                     }
 
-                    zin.closeEntry();
+                    zipStream.closeEntry();
+                    bufout.close();
                     fout.close();
                 }
-
             }
-            zin.close();
-        } catch(Exception e) {
-            Log.e("Decompress", "unzip", e);
+            zipStream.close();
+            Log.d("Unzip", "Unzipping complete. path :  " + _location);
+        } catch (Exception e) {
+            Log.d("Unzip", "Unzipping failed");
+            e.printStackTrace();
         }
 
     }
 
-    private void _dirChecker(String dir) {
+    public void hanldeDirectory(String dir) {
         File f = new File(_location + dir);
-
-        if(!f.isDirectory()) {
+        if (!f.isDirectory()) {
             f.mkdirs();
         }
     }

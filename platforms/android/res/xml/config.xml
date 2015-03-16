@@ -9,10 +9,9 @@
         PhoneGap Team
     </author>
 
-    <content src="data:///index.html" />
+    <content src="file:///www/index.html" />
 
     <feature name="AppUpdate">
-        <param name="ios-package" value="AppUpdate" />
         <param name="android-package" value="uk.co.emaho.AppUpdate"/>
         <param name="onload" value="true"/> <!-- required for plugin to load inital page correctly -->
     </feature>

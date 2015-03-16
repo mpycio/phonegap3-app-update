@@ -49,6 +49,11 @@ package uk.co.emaho;
         @Override
         public Uri remapUri(Uri uri) {
 
+            // we only handle file schema, everything else goes unmapped
+            if(!uri.getScheme().equalsIgnoreCase("file")) {
+                return uri;
+            }
+
             String scheme = uri.getScheme();
             if (scheme.equalsIgnoreCase("data")) {
                 String path = uri.getPath();
@@ -133,6 +138,9 @@ package uk.co.emaho;
 
                 Unzip unzip = new Unzip(fileName, unzipPath);
                 unzip.unzip();
+
+                // reload new index page
+                AppUpdate.this.webView.reload();
             }
         }
     }

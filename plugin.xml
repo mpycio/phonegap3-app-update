@@ -50,11 +50,17 @@
     
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
+            
+            <!-- this is just to force phonegap to call ur remapUrl when loading index page -->
+            <content src="file:///www/index.html" />
+            
             <preference name="permissions" value="none"/>
             
             <feature name="AppUpdate">
                 <param name="android-package" value="uk.co.emaho.AppUpdate"/>
+                <param name="onload" value="true"/> <!-- required for plugin to load initial page correctly -->
             </feature>
+            
             <feature name="http://api.phonegap.com/1.0/file"/>
         </config-file>
         <!-- <source-file src="src/android/libs/gcm.jar" target-dir="libs/" /> -->
