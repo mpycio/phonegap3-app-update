@@ -2,15 +2,11 @@ package uk.co.emaho;
 
     import android.net.Uri;
     import android.os.AsyncTask;
-    import android.os.Environment;
     import android.util.Log;
-    import android.webkit.WebView;
 
-    import org.apache.cordova.CordovaInterface;
     import org.apache.cordova.CordovaPlugin;
     import org.apache.cordova.CallbackContext;
 
-    import org.apache.cordova.CordovaWebViewClient;
     import org.apache.cordova.PluginResult;
     import org.json.JSONArray;
     import org.json.JSONException;
@@ -22,7 +18,6 @@ package uk.co.emaho;
     import java.io.OutputStream;
     import java.net.URL;
     import java.net.URLConnection;
-    import java.util.Locale;
 
     /**
      * This class echoes a string called from JavaScript.
@@ -54,31 +49,34 @@ package uk.co.emaho;
                 return uri;
             }
 
-            String scheme = uri.getScheme();
-            if (scheme.equalsIgnoreCase("data")) {
-                String path = uri.getPath();
-                String fileDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/www";
-                File file = new File(fileDir + path);
-                if (file.canRead()) {
-                    Uri.Builder builder = new Uri.Builder();
-                    builder.scheme("file").path(fileDir);
-                    for (String segment : uri.getPathSegments()) {
-                        builder.appendPath(segment);
-                    }
+            String path = uri.getPath();
+            File filesDir = AppUpdate.this.cordova.getActivity().getFilesDir();
+            File file = new File(filesDir, path);
+            if (file.canRead()) {
+                Uri newUri = Uri.fromFile(file);
+                // or this ->Uri.parse(file.toString());
 
-                    return builder.build();
-                } else {
-                    // file:///android_asset/www/index.html
-                    Uri.Builder builder = new Uri.Builder();
-                    builder.scheme("file").path("/android_asset/www");
-                    for (String segment : uri.getPathSegments()) {
-                        builder.appendPath(segment);
-                    }
+//                Uri.Builder builder = new Uri.Builder();
+//                builder.scheme("file").path(fileDir);
+//                for (String segment : uri.getPathSegments()) {
+//                    builder.appendPath(segment);
+//                }
+//
+//                Uri newUri = builder.build();
+                Log.d("AppUpdate:remapUri", String.format("override path: %s", newUri.toString()));
+                return newUri;
 
-                    return builder.build();
-                }
             } else {
-                return  uri;
+                // file:///android_asset/www/index.html
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("file").path("/android_asset/");
+                for (String segment : uri.getPathSegments()) {
+                    builder.appendPath(segment);
+                }
+
+                Uri newUri = builder.build();
+                Log.d("AppUpdate:remapUri", String.format("original path: %s", newUri.toString()));
+                return newUri;
             }
         }
 
@@ -101,8 +99,7 @@ package uk.co.emaho;
                     int lenghtOfFile = connection.getContentLength();
 
                     InputStream input = new BufferedInputStream(url.openStream());
-                    String fileDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-                    File file = new File(fileDir, "/AppUpdate.zip");
+                    File file = new File(AppUpdate.this.cordova.getActivity().getCacheDir(), "AppUpdate.zip");
                     OutputStream output = new FileOutputStream(file);
 
                     byte data[] = new byte[1024];
@@ -132,11 +129,11 @@ package uk.co.emaho;
 
             @Override
             protected void onPostExecute(String unused) {
-                String fileDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-                String fileName = fileDir + "/AppUpdate.zip";
-                String unzipPath = fileDir + "/www/";
+                File filesPath = AppUpdate.this.cordova.getActivity().getFilesDir();
+                File cachePath = AppUpdate.this.cordova.getActivity().getCacheDir();
+                File zipFile = new File(cachePath, "AppUpdate.zip");
 
-                Unzip unzip = new Unzip(fileName, unzipPath);
+                Unzip unzip = new Unzip(zipFile, new File(filesPath, "www"));
                 unzip.unzip();
 
                 // reload new index page

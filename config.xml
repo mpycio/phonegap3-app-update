@@ -7,16 +7,16 @@
     <author email="support@phonegap.com" href="http://phonegap.com">
         PhoneGap Team
     </author>
-    
+
     <!-- this is just a hack to force Cordova to call remapUri and shouldOverrideLoadWithRequest -->
-    <content src="data:///index.html" />
-    
+    <content src="file:///index.html" />
+
     <feature name="AppUpdate">
         <param name="ios-package" value="AppUpdate" />
         <param name="android-package" value="uk.co.emaho.AppUpdate"/>
         <param name="onload" value="true"/> <!-- required for plugin to load inital page correctly -->
     </feature>
-    
+
     <!-- WRITE_EXTERNAL_STORAGE permission on android -->
     <feature name="http://api.phonegap.com/1.0/file"/>
 

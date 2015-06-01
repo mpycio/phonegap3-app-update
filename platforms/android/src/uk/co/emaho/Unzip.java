@@ -13,10 +13,10 @@ import java.util.zip.ZipInputStream;
  * @author jon simon (jondev.net)
  */
 public class Unzip {
-    private String _zipFile;
-    private String _location;
+    private File _zipFile;
+    private File _location;
 
-    public Unzip(String zipFile, String location) {
+    public Unzip(File zipFile, File location) {
         _zipFile = zipFile;
         _location = location;
 
@@ -30,8 +30,11 @@ public class Unzip {
             ZipInputStream zipStream = new ZipInputStream(inputStream);
             ZipEntry zEntry = null;
             while ((zEntry = zipStream.getNextEntry()) != null) {
-                Log.d("Unzip", "Unzipping " + zEntry.getName() + " at "
-                        + _location);
+                if(zEntry.getName().startsWith("__MACOSX")) {
+                    Log.d("Unzip", "Skipping " + zEntry.getName());
+                    continue;
+                }
+                Log.d("Unzip", "Unzipping " + zEntry.getName() + " at " + _location);
 
                 if (zEntry.isDirectory()) {
                     hanldeDirectory(zEntry.getName());
@@ -60,7 +63,7 @@ public class Unzip {
     }
 
     public void hanldeDirectory(String dir) {
-        File f = new File(_location + dir);
+        File f = new File(_location, dir);
         if (!f.isDirectory()) {
             f.mkdirs();
         }
