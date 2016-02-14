@@ -1,4 +1,5 @@
-/*
+<?xml version="1.0" encoding="utf-8"?>
+<!--
        Licensed to the Apache Software Foundation (ASF) under one
        or more contributor license agreements.  See the NOTICE file
        distributed with this work for additional information
@@ -15,40 +16,12 @@
        KIND, either express or implied.  See the License for the
        specific language governing permissions and limitations
        under the License.
-*/
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.apache.cordova"
+    android:versionCode="1"
+    android:versionName="1.0" >
 
+    <uses-sdk android:minSdkVersion="10" />
 
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-    }
-}
-
-apply plugin: 'android-library'
-
-android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-    }
-}
+</manifest>
